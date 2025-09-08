@@ -1,11 +1,12 @@
 
-#include <iostream>
-#include <GL/glew.h>
+
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #ifndef M_PI
@@ -34,12 +35,8 @@ struct Engine { //sets up opengl engine
 			exit(EXIT_FAILURE);
 		}
 		glfwMakeContextCurrent(window);
-		glewExperimental = GL_TRUE;
-		if (glewInit != GLEW_OK) {
-			cerr << "Failed to initialize GLEW" << std::endl;
-			glfwDestroyWindow(window);
-			glfwTerminate();
-			exit(EXIT_FAILURE);
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+			std::cerr << "Failed to initialize GLAD\n";
 		}
 		glViewport(0, 0, width, height);
 	}
